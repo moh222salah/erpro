@@ -1,0 +1,265 @@
+{
+  "name": "General Ledger Enhanced",
+  "report_name": "General Ledger",
+  "report_type": "Script Report",
+  "is_standard": "No",
+  "ref_doctype": "GL Entry",
+  "module": "Accounts",
+  "filters": [
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "options": "Company",
+      "default": "",
+      "reqd": 1,
+      "width": "80"
+    },
+    {
+      "fieldname": "finance_book",
+      "label": "Finance Book",
+      "fieldtype": "Link",
+      "options": "Finance Book",
+      "width": "80"
+    },
+    {
+      "fieldname": "from_date",
+      "label": "From Date",
+      "fieldtype": "Date",
+      "default": "Today",
+      "reqd": 1,
+      "width": "80"
+    },
+    {
+      "fieldname": "to_date",
+      "label": "To Date",
+      "fieldtype": "Date",
+      "default": "Today",
+      "reqd": 1,
+      "width": "80"
+    },
+    {
+      "fieldname": "account",
+      "label": "Account",
+      "fieldtype": "MultiSelectList",
+      "options": "Account",
+      "get_data": "frappe.desk.reportview.get_filters_canned_report",
+      "width": "100"
+    },
+    {
+      "fieldname": "voucher_no",
+      "label": "Voucher No",
+      "fieldtype": "Data",
+      "width": "100"
+    },
+    {
+      "fieldname": "against_voucher_no",
+      "label": "Against Voucher No",
+      "fieldtype": "Data",
+      "width": "100"
+    },
+    {
+      "fieldname": "party_type",
+      "label": "Party Type",
+      "fieldtype": "Link",
+      "options": "DocType",
+      "get_query": "erpnext.setup.utils.get_party_type",
+      "width": "80"
+    },
+    {
+      "fieldname": "party",
+      "label": "Party",
+      "fieldtype": "MultiSelectList",
+      "get_data": "frappe.desk.reportview.get_filters_canned_report",
+      "width": "100"
+    },
+    {
+      "fieldname": "project",
+      "label": "Project",
+      "fieldtype": "MultiSelectList",
+      "options": "Project",
+      "get_data": "frappe.desk.reportview.get_filters_canned_report",
+      "width": "100"
+    },
+    {
+      "fieldname": "cost_center",
+      "label": "Cost Center",
+      "fieldtype": "MultiSelectList",
+      "options": "Cost Center",
+      "get_data": "frappe.desk.reportview.get_filters_canned_report",
+      "width": "100"
+    },
+    {
+      "fieldname": "against",
+      "label": "Against",
+      "fieldtype": "Data",
+      "width": "120"
+    },
+    {
+      "fieldname": "group_by",
+      "label": "Group by",
+      "fieldtype": "Select",
+      "options": [
+        "",
+        "Group by Voucher",
+        "Group by Voucher (Consolidated)",
+        "Group by Account",
+        "Group by Party"
+      ],
+      "default": "Group by Voucher (Consolidated)"
+    },
+    {
+      "fieldname": "tax_id",
+      "label": "Tax ID",
+      "fieldtype": "Data",
+      "width": "100",
+      "hidden": 0
+    },
+    {
+      "fieldname": "presentation_currency",
+      "label": "Currency",
+      "fieldtype": "Link",
+      "options": "Currency",
+      "width": "80"
+    },
+    {
+      "fieldname": "show_cancelled_entries",
+      "label": "Show Cancelled Entries",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "show_opening_entries",
+      "label": "Show Opening Entries",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "include_dimensions",
+      "label": "Include Dimensions",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "show_remarks",
+      "label": "Show Remarks",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "show_party_name",
+      "label": "Show Party Name",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "include_default_book_entries",
+      "label": "Include Default FB Entries",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "show_net_values_in_party_account",
+      "label": "Show Net Values in Party Account",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "add_values_in_transaction_currency",
+      "label": "Show Values in Transaction Currency",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "show_debit_credit_separately",
+      "label": "Show Debit/Credit Separately",
+      "fieldtype": "Check",
+      "default": 0
+    }
+  ],
+  "columns": [
+    {
+      "fieldname": "posting_date",
+      "label": "Posting Date",
+      "fieldtype": "Date",
+      "width": 90
+    },
+    {
+      "fieldname": "account",
+      "label": "Account",
+      "fieldtype": "Link",
+      "options": "Account",
+      "width": 200
+    },
+    {
+      "fieldname": "debit",
+      "label": "Debit",
+      "fieldtype": "Currency",
+      "width": 120
+    },
+    {
+      "fieldname": "credit",
+      "label": "Credit",
+      "fieldtype": "Currency",
+      "width": 120
+    },
+    {
+      "fieldname": "balance",
+      "label": "Balance",
+      "fieldtype": "Currency",
+      "width": 130
+    },
+    {
+      "fieldname": "voucher_type",
+      "label": "Voucher Type",
+      "fieldtype": "Data",
+      "width": 120
+    },
+    {
+      "fieldname": "voucher_no",
+      "label": "Voucher No",
+      "fieldtype": "Dynamic Link",
+      "options": "voucher_type",
+      "width": 180
+    },
+    {
+      "fieldname": "against",
+      "label": "Against Account",
+      "fieldtype": "Data",
+      "width": 200
+    },
+    {
+      "fieldname": "party_type",
+      "label": "Party Type",
+      "fieldtype": "Data",
+      "width": 100
+    },
+    {
+      "fieldname": "party",
+      "label": "Party",
+      "fieldtype": "Dynamic Link",
+      "options": "party_type",
+      "width": 150
+    },
+    {
+      "fieldname": "cost_center",
+      "label": "Cost Center",
+      "fieldtype": "Link",
+      "options": "Cost Center",
+      "width": 120
+    },
+    {
+      "fieldname": "project",
+      "label": "Project",
+      "fieldtype": "Link",
+      "options": "Project",
+      "width": 120
+    },
+    {
+      "fieldname": "remarks",
+      "label": "Remarks",
+      "fieldtype": "Data",
+      "width": 200
+    }
+  ]
+}
