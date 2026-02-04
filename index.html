@@ -984,282 +984,480 @@
         </div>
     </div>
 
-    <!-- Floating Dark Mode Button -->
-    <button class="floating-dark-mode-btn" onclick="toggleDarkMode()" title="تبديل الوضع" id="floatingDarkBtn">
-        <i class="fas fa-moon" id="themeIcon"></i>
-    </button>
 
-    <div class="container mb-5">
-        <!-- Tabs Navigation -->
-        <div class="tabs-container">
-            <ul class="nav nav-tabs-custom" id="mainTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="ledger-tab" data-bs-toggle="tab" data-bs-target="#ledger" type="button">
-                        <i class="fas fa-book"></i>
-                        <span class="tab-text">دفتر الأستاذ العام</span>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Filter Section -->
+        <section class="filter-section no-print">
+            <div class="filter-header">
+                <h2 class="filter-title">
+                    <i class="fas fa-filter"></i>
+                    <span id="filterTitle">الفلاتر والخيارات</span>
+                </h2>
+                <div class="filter-actions">
+                    <button class="btn-secondary" onclick="resetFilters()">
+                        <i class="fas fa-redo"></i>
+                        <span id="resetBtn">إعادة تعيين</span>
                     </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="financial-tab" data-bs-toggle="tab" data-bs-target="#financial" type="button">
-                        <i class="fas fa-chart-line"></i>
-                        <span class="tab-text">النظام المالي الذكي</span>
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button">
-                        <i class="fas fa-file-alt"></i>
-                        <span class="tab-text">التقارير والتحليلات</span>
-                    </button>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Tab Content -->
-        <div class="tab-content" id="mainTabContent">
-            <!-- General Ledger Tab -->
-            <div class="tab-pane fade show active animate-fade-in" id="ledger" role="tabpanel">
-                <!-- Filter Section -->
-                <div class="filter-section">
-                    <h5 class="mb-3" id="filterTitle">
-                        <i class="fas fa-filter"></i> الفلاتر والخيارات
-                    </h5>
-                    <div class="filter-grid">
-                        <div>
-                            <label class="form-label" id="labelFinanceBook">Finance Book</label>
-                            <select class="form-select" id="financeBook" onchange="applyFilters()">
-                                <option value="alrajhi">شركة الراجحي التجارية</option>
-                                <option value="saud">مؤسسة سعود للمقاولات</option>
-                                <option value="alamal">شركة الأمل للاستثمار</option>
-                                <option value="alnoor">مجموعة النور للتطوير</option>
-                                <option value="alfaisal">شركة فيصل التجارية</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="form-label" id="labelDateFrom">تاريخ البدء</label>
-                            <input type="date" class="form-control" id="dateFrom" value="2025-01-11" onchange="applyFilters()">
-                        </div>
-                        <div>
-                            <label class="form-label" id="labelDateTo">تاريخ الانتهاء</label>
-                            <input type="date" class="form-control" id="dateTo" value="2026-02-04" onchange="applyFilters()">
-                        </div>
-                        <div>
-                            <label class="form-label" id="labelParty">الطرف</label>
-                            <select class="form-select" id="party" onchange="applyFilters()">
-                                <option value="">جميع الأطراف</option>
-                                <option value="alrajhi">شركة الراجحي التجارية</option>
-                                <option value="saud">مؤسسة سعود للمقاولات</option>
-                                <option value="alamal">شركة الأمل للاستثمار</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="form-label" id="labelCurrency">العملة</label>
-                            <select class="form-select" id="currency" onchange="applyFilters()">
-                                <option>SAR - ريال سعودي</option>
-                                <option>USD - دولار أمريكي</option>
-                                <option>EUR - يورو</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="form-label" id="labelVoucherNo">رقم القيد</label>
-                            <input type="text" class="form-control" id="voucherNo" placeholder="اختياري" onchange="applyFilters()">
-                        </div>
-                    </div>
-
-                    <!-- Options Grid -->
-                    <div class="options-grid mt-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="considerAccounting" checked onchange="applyFilters()">
-                            <label class="form-check-label" for="considerAccounting" id="labelConsiderAccounting">
-                                Consider Accounting Dimensions
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="showOpeningEntries" onchange="applyFilters()">
-                            <label class="form-check-label" for="showOpeningEntries" id="labelShowOpeningEntries">
-                                Show Opening Entries
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="includeDefaultFB" checked onchange="applyFilters()">
-                            <label class="form-check-label" for="includeDefaultFB" id="labelIncludeDefaultFB">
-                                Include Default FB Entries
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="showCancelled" onchange="applyFilters()">
-                            <label class="form-check-label" for="showCancelled" id="labelShowCancelled">
-                                Show Cancelled Entries
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="showNetValues" checked onchange="applyFilters()">
-                            <label class="form-check-label" for="showNetValues" id="labelShowNetValues">
-                                Show Net Values in Party Account
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="ignoreExchange" checked onchange="applyFilters()">
-                            <label class="form-check-label" for="ignoreExchange" id="labelIgnoreExchange">
-                                Ignore Exchange Rate Revaluation
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Controls Bar -->
-                    <div class="controls-bar mt-4">
-                        <button class="btn-action" onclick="refreshData()">
-                            <i class="fas fa-sync-alt"></i>
-                            <span id="btnRefresh">Refresh Data</span>
-                        </button>
-                        <button class="btn-action" onclick="exportCSV()">
-                            <i class="fas fa-file-csv"></i>
-                            <span id="btnExportCSV">Export CSV</span>
-                        </button>
-                        <button class="btn-action" onclick="printReport()">
-                            <i class="fas fa-print"></i>
-                            <span id="btnPrint">Print</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- General Ledger Table -->
-                <div class="table-container">
-                    <h5 class="mb-3">
-                        <i class="fas fa-table"></i> 
-                        <span id="ledgerTableTitle">دفتر الأستاذ العام - General Ledger</span>
-                    </h5>
-                    <p class="text-muted small mb-3">
-                        <i class="fas fa-clock"></i> 
-                        <span id="executionTime">Execution Time: 0.02354 sec</span>
-                    </p>
-                    <div class="table-wrapper">
-                        <table class="table-modern" id="ledgerTable">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th id="thAccount">Account</th>
-                                    <th id="thPostingDate">Posting Date</th>
-                                    <th id="thDebit">Debit (SAR)</th>
-                                    <th id="thCredit">Credit (SAR)</th>
-                                    <th id="thBalance">Balance (SAR)</th>
-                                    <th id="thVoucher">Voucher</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ledgerTableBody">
-                                <!-- Data will be loaded dynamically -->
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
 
-            <!-- Smart Financial System Tab -->
-            <div class="tab-pane fade animate-fade-in" id="financial" role="tabpanel">
-                <!-- Stats Grid -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: var(--gradient-primary);">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div class="stat-value" id="statExpenses">413,681.75 ر.س</div>
-                        <div class="stat-label" id="statExpensesLabel">إجمالي المصروفات</div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>+7.2%</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: var(--gradient-success);">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="stat-value" id="statProfit">685,420.50 ر.س</div>
-                        <div class="stat-label" id="statProfitLabel">صافي الربح (بعد الضريبة)</div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>+18.3%</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: var(--gradient-info);">
-                            <i class="fas fa-percent"></i>
-                        </div>
-                        <div class="stat-value" id="statEfficiency">88.4%</div>
-                        <div class="stat-label" id="statEfficiencyLabel">كفاءة استهلاك الوقود (4.15)</div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>+5.7%</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: var(--gradient-danger);">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                        </div>
-                        <div class="stat-value" id="statVAT">61,875.35 ر.س</div>
-                        <div class="stat-label" id="statVATLabel">ضريبة القيمة المضافة (4.15)</div>
-                        <div class="stat-change">
-                            <i class="fas fa-check-circle"></i>
-                            <span id="statVATStatus">مدفوعة</span>
+            <!-- Filter Grid -->
+            <div class="filter-grid">
+                <!-- تاريخ البدء -->
+                <div class="filter-item">
+                    <label class="filter-label" id="startDateLabel">تاريخ البدء</label>
+                    <input type="date" class="filter-input" id="startDate" value="2025-01-11">
+                </div>
+
+                <!-- تاريخ الانتهاء -->
+                <div class="filter-item">
+                    <label class="filter-label" id="endDateLabel">تاريخ الانتهاء</label>
+                    <input type="date" class="filter-input" id="endDate" value="2026-02-04">
+                </div>
+
+                <!-- Finance Book -->
+                <div class="filter-item">
+                    <label class="filter-label" id="financeBookLabel">Finance Book</label>
+                    <select class="filter-select" id="financeBook">
+                        <option value="شركة الراجحي المالية">شركة الراجحي المالية</option>
+                        <option value="شركة الإنماء">شركة الإنماء</option>
+                        <option value="شركة الأهلي">شركة الأهلي</option>
+                    </select>
+                </div>
+
+                <!-- اختيار الشركة -->
+                <div class="filter-item">
+                    <label class="filter-label" id="companyLabel">اختيار الشركة</label>
+                    <div class="multi-select-dropdown">
+                        <button class="multi-select-button" onclick="toggleMultiSelect('companyMenu')">
+                            <span id="companySelected">اختر الشركات</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="multi-select-menu" id="companyMenu">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="company1" value="شركة المتحدة للصناعات">
+                                <label for="company1">شركة المتحدة للصناعات</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="company2" value="شركة التقنية المتطورة">
+                                <label for="company2">شركة التقنية المتطورة</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="company3" value="شركة الابتكار الرقمي">
+                                <label for="company3">شركة الابتكار الرقمي</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="company4" value="شركة الحلول الذكية">
+                                <label for="company4">شركة الحلول الذكية</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="company5" value="شركة النجاح التجارية">
+                                <label for="company5">شركة النجاح التجارية</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="company6" value="شركة الأمل للاستثمار">
+                                <label for="company6">شركة الأمل للاستثمار</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="company7" value="شركة الريادة الصناعية">
+                                <label for="company7">شركة الريادة الصناعية</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="company8" value="شركة التميز العالمي">
+                                <label for="company8">شركة التميز العالمي</label>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Monthly Profit Chart -->
-                <div class="chart-container">
-                    <h5 id="chartProfitTitle">الانتجاح الربحية الشهرية (2024)</h5>
-                    <canvas id="profitChart"></canvas>
+                <!-- نوع الأطراف -->
+                <div class="filter-item">
+                    <label class="filter-label" id="partyTypeLabel">نوع الأطراف</label>
+                    <div class="multi-select-dropdown">
+                        <button class="multi-select-button" onclick="toggleMultiSelect('partyTypeMenu')">
+                            <span id="partyTypeSelected">جميع الأطراف</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="multi-select-menu" id="partyTypeMenu">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="customer" value="عملاء">
+                                <label for="customer">عملاء</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="supplier" value="موردين">
+                                <label for="supplier">موردين</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="employee" value="موظفين">
+                                <label for="employee">موظفين</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Truck Performance Chart -->
-                <div class="chart-container">
-                    <h5 id="chartTruckTitle">تفاصيل أداء الشاحنات</h5>
-                    <canvas id="truckChart"></canvas>
+                <!-- نوع الحساب -->
+                <div class="filter-item">
+                    <label class="filter-label" id="accountTypeLabel">نوع الحساب</label>
+                    <div class="multi-select-dropdown">
+                        <button class="multi-select-button" onclick="toggleMultiSelect('accountTypeMenu')">
+                            <span id="accountTypeSelected">اختر نوع الحساب</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="multi-select-menu" id="accountTypeMenu">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="cash" value="كاش">
+                                <label for="cash">كاش</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="salary" value="مرتبات">
+                                <label for="salary">مرتبات</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="assets" value="أصول">
+                                <label for="assets">أصول</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="liabilities" value="خصوم">
+                                <label for="liabilities">خصوم</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="equity" value="حقوق ملكية">
+                                <label for="equity">حقوق ملكية</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="revenue" value="إيرادات">
+                                <label for="revenue">إيرادات</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="expenses" value="مصروفات">
+                                <label for="expenses">مصروفات</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="other" value="أخرى">
+                                <label for="other">أخرى</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- المشاريع -->
+                <div class="filter-item">
+                    <label class="filter-label" id="projectLabel">المشاريع</label>
+                    <div class="multi-select-dropdown">
+                        <button class="multi-select-button" onclick="toggleMultiSelect('projectMenu')">
+                            <span id="projectSelected">اختر المشاريع</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="multi-select-menu" id="projectMenu">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="project1" value="مشروع البنية التحتية">
+                                <label for="project1">مشروع البنية التحتية</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="project2" value="مشروع التحول الرقمي">
+                                <label for="project2">مشروع التحول الرقمي</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="project3" value="مشروع التوسع الإقليمي">
+                                <label for="project3">مشروع التوسع الإقليمي</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="project4" value="مشروع الابتكار والبحث">
+                                <label for="project4">مشروع الابتكار والبحث</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="project5" value="مشروع تطوير المنتجات">
+                                <label for="project5">مشروع تطوير المنتجات</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="project6" value="مشروع التدريب والتطوير">
+                                <label for="project6">مشروع التدريب والتطوير</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="project7" value="مشروع الاستدامة">
+                                <label for="project7">مشروع الاستدامة</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="project8" value="مشروع الشراكات الاستراتيجية">
+                                <label for="project8">مشروع الشراكات الاستراتيجية</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- مراكز التكلفة -->
+                <div class="filter-item">
+                    <label class="filter-label" id="costCenterLabel">مراكز التكلفة</label>
+                    <div class="multi-select-dropdown">
+                        <button class="multi-select-button" onclick="toggleMultiSelect('costCenterMenu')">
+                            <span id="costCenterSelected">اختر مراكز التكلفة</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="multi-select-menu" id="costCenterMenu">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="cost1" value="مركز تكلفة الإدارة">
+                                <label for="cost1">مركز تكلفة الإدارة</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="cost2" value="مركز تكلفة المبيعات">
+                                <label for="cost2">مركز تكلفة المبيعات</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="cost3" value="مركز تكلفة التسويق">
+                                <label for="cost3">مركز تكلفة التسويق</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="cost4" value="مركز تكلفة الإنتاج">
+                                <label for="cost4">مركز تكلفة الإنتاج</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العملات -->
+                <div class="filter-item">
+                    <label class="filter-label" id="currencyLabel">العملة</label>
+                    <div class="multi-select-dropdown">
+                        <button class="multi-select-button" onclick="toggleMultiSelect('currencyMenu')">
+                            <span id="currencySelected">SAR - ريال سعودي</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="multi-select-menu" id="currencyMenu">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="sar" value="SAR" checked>
+                                <label for="sar">SAR - ريال سعودي</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="usd" value="USD">
+                                <label for="usd">USD - دولار أمريكي</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="eur" value="EUR">
+                                <label for="eur">EUR - يورو</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="gbp" value="GBP">
+                                <label for="gbp">GBP - جنيه إسترليني</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="aed" value="AED">
+                                <label for="aed">AED - درهم إماراتي</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نوع القيد -->
+                <div class="filter-item">
+                    <label class="filter-label" id="voucherTypeLabel">نوع القيد</label>
+                    <select class="filter-select" id="voucherType">
+                        <option value="all">جميع الأنواع</option>
+                        <option value="journal">يومية</option>
+                        <option value="sales">مبيعات</option>
+                        <option value="purchase">مشتريات</option>
+                        <option value="payment">صرف</option>
+                        <option value="receipt">قبض</option>
+                        <option value="voucher">عرض بالسند المحاسبي</option>
+                    </select>
+                </div>
+
+                <!-- حالة المعاملة -->
+                <div class="filter-item">
+                    <label class="filter-label" id="statusLabel">حالة المعاملة</label>
+                    <select class="filter-select" id="transactionStatus">
+                        <option value="all">جميع الحالات</option>
+                        <option value="draft">مسودة</option>
+                        <option value="submitted">مقدم</option>
+                        <option value="cancelled">ملغي</option>
+                    </select>
+                </div>
+
+                <!-- نوع الضريبة -->
+                <div class="filter-item">
+                    <label class="filter-label" id="taxTypeLabel">نوع الضريبة</label>
+                    <div class="multi-select-dropdown">
+                        <button class="multi-select-button" onclick="toggleMultiSelect('taxTypeMenu')">
+                            <span id="taxTypeSelected">اختر نوع الضريبة</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="multi-select-menu" id="taxTypeMenu">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="vat" value="VAT">
+                                <label for="vat">VAT - ضريبة القيمة المضافة</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="withholding" value="استقطاع">
+                                <label for="withholding">استقطاع ضريبي</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="zakat" value="زكاة">
+                                <label for="zakat">زكاة</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- التجميع المرن -->
+                <div class="filter-item">
+                    <label class="filter-label" id="groupByLabel">التجميع حسب</label>
+                    <select class="filter-select" id="groupBy">
+                        <option value="none">بدون تجميع</option>
+                        <option value="voucher">القيد</option>
+                        <option value="account">الحساب</option>
+                        <option value="party">الطرف</option>
+                        <option value="project">المشروع</option>
+                        <option value="cost_center">مركز التكلفة</option>
+                        <option value="date">التاريخ</option>
+                    </select>
+                </div>
+
+                <!-- رقم القيد -->
+                <div class="filter-item">
+                    <label class="filter-label" id="voucherNoLabel">رقم القيد</label>
+                    <select class="filter-select" id="voucherNo">
+                        <option value="optional">اختياري</option>
+                        <option value="001">001</option>
+                        <option value="002">002</option>
+                        <option value="003">003</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- Reports & Analytics Tab -->
-            <div class="tab-pane fade animate-fade-in" id="reports" role="tabpanel">
-                <div class="mb-4">
-                    <h5 id="reportsTitle">التقارير والتحليلات المتقدمة</h5>
-                    <p class="text-muted" id="reportsSubtitle">
-                        هذا القسم قيد التطوير - سيتم إضافة تقارير متقدمة شاملة قريباً
-                    </p>
+            <!-- Checkbox Options -->
+            <div class="checkbox-group">
+                <div class="checkbox-item" onclick="toggleCheckbox(this, 'considerAccounting')">
+                    <input type="checkbox" id="considerAccounting" checked>
+                    <label for="considerAccounting" id="considerAccountingLabel">Consider Accounting Dimensions</label>
                 </div>
 
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="report-card">
-                            <h5 id="reportPL">تقرير الأرباح والخسائر</h5>
-                            <p id="reportPLDesc">تحليل شامل للأرباح الشهرية</p>
-                            <button class="btn-report" onclick="generateReport('pl')">
-                                <i class="fas fa-file-pdf"></i>
-                                <span id="btnGeneratePL">إنشاء التقرير</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="report-card">
-                            <h5 id="reportBS">الميزانية العمومية</h5>
-                            <p id="reportBSDesc">الأصول والخصوم</p>
-                            <button class="btn-report" onclick="generateReport('bs')">
-                                <i class="fas fa-file-pdf"></i>
-                                <span id="btnGenerateBS">إنشاء التقرير</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="report-card">
-                            <h5 id="reportZATCA">تقرير الضرائب ZATCA</h5>
-                            <p id="reportZATCADesc">متوافق مع هيئة الزكاة</p>
-                            <button class="btn-report" onclick="generateReport('zatca')">
-                                <i class="fas fa-file-pdf"></i>
-                                <span id="btnGenerateZATCA">إنشاء التقرير</span>
-                            </button>
-                        </div>
-                    </div>
+                <div class="checkbox-item" onclick="toggleCheckbox(this, 'includeFbEntries')">
+                    <input type="checkbox" id="includeFbEntries" checked>
+                    <label for="includeFbEntries" id="includeFbEntriesLabel">Include Default FB Entries</label>
+                </div>
+
+                <div class="checkbox-item" onclick="toggleCheckbox(this, 'showOpening')">
+                    <input type="checkbox" id="showOpening">
+                    <label for="showOpening" id="showOpeningLabel">Show Opening Entries</label>
+                </div>
+
+                <div class="checkbox-item" onclick="toggleCheckbox(this, 'showCancelled')">
+                    <input type="checkbox" id="showCancelled">
+                    <label for="showCancelled" id="showCancelledLabel">Show Cancelled Entries</label>
+                </div>
+
+                <div class="checkbox-item" onclick="toggleCheckbox(this, 'ignoreExchange')">
+                    <input type="checkbox" id="ignoreExchange" checked>
+                    <label for="ignoreExchange" id="ignoreExchangeLabel">Ignore Exchange Rate Revaluation</label>
+                </div>
+
+                <div class="checkbox-item" onclick="toggleCheckbox(this, 'showNet')">
+                    <input type="checkbox" id="showNet" checked>
+                    <label for="showNet" id="showNetLabel">Show Net Values in Party Account</label>
+                </div>
+
+                <div class="checkbox-item" onclick="toggleCheckbox(this, 'showZeroBalances')">
+                    <input type="checkbox" id="showZeroBalances">
+                    <label for="showZeroBalances" id="showZeroBalancesLabel">إظهار الأرصدة الصفرية</label>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <!-- Action Buttons -->
+            <div class="filter-buttons">
+                <button class="btn-primary-gradient" onclick="applyFilters()">
+                    <i class="fas fa-filter"></i>
+                    <span id="applyBtn">تطبيق الفلاتر</span>
+                </button>
+
+                <button class="btn-print" onclick="printReport()">
+                    <i class="fas fa-print"></i>
+                    <span id="printBtn">طباعة التقرير</span>
+                </button>
+
+                <button class="btn-secondary" onclick="exportToExcel()">
+                    <i class="fas fa-file-excel"></i>
+                    <span id="excelBtn">تصدير Excel</span>
+                </button>
+
+                <button class="btn-secondary" onclick="exportToPDF()">
+                    <i class="fas fa-file-pdf"></i>
+                    <span id="pdfBtn">تصدير PDF</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="data-table-container">
+            <div class="print-content" id="printContent">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h2 id="printTitle">دفتر الأستاذ العام</h2>
+                    <p id="printDate">من: <span id="printStartDate">2025/01/11</span> إلى: <span id="printEndDate">2026/02/04</span></p>
+                    <p id="printCompany">الشركة: <span id="printCompanyName">شركة الراجحي المالية</span></p>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th id="thDate">التاريخ</th>
+                            <th id="thVoucher">القيد</th>
+                            <th id="thAccount">الحساب</th>
+                            <th id="thParty">الطرف</th>
+                            <th id="thDebit">مدين</th>
+                            <th id="thCredit">دائن</th>
+                            <th id="thBalance">الرصيد</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody">
+                        <tr>
+                            <td>2025-01-15</td>
+                            <td>JV-001</td>
+                            <td>حساب البنك الراجحي</td>
+                            <td>عميل - شركة النور</td>
+                            <td>50,000.00 SAR</td>
+                            <td>-</td>
+                            <td>50,000.00 SAR</td>
+                        </tr>
+                        <tr>
+                            <td>2025-01-20</td>
+                            <td>JV-002</td>
+                            <td>حساب المصروفات العمومية</td>
+                            <td>مورد - شركة التقنية</td>
+                            <td>-</td>
+                            <td>15,000.00 SAR</td>
+                            <td>35,000.00 SAR</td>
+                        </tr>
+                        <tr>
+                            <td>2025-01-25</td>
+                            <td>JV-003</td>
+                            <td>حساب الإيرادات</td>
+                            <td>عميل - شركة الأمل</td>
+                            <td>75,000.00 SAR</td>
+                            <td>-</td>
+                            <td>110,000.00 SAR</td>
+                        </tr>
+                        <tr>
+                            <td>2025-02-01</td>
+                            <td>JV-004</td>
+                            <td>حساب الرواتب</td>
+                            <td>موظف - أحمد محمد</td>
+                            <td>-</td>
+                            <td>25,000.00 SAR</td>
+                            <td>85,000.00 SAR</td>
+                        </tr>
+                        <tr>
+                            <td>2025-02-10</td>
+                            <td>SI-001</td>
+                            <td>حساب المبيعات</td>
+                            <td>عميل - شركة التميز</td>
+                            <td>120,000.00 SAR</td>
+                            <td>-</td>
+                            <td>205,000.00 SAR</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
