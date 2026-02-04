@@ -1014,20 +1014,14 @@
             </ul>
         </div>
 
-
-
         <!-- Tab Content -->
         <div class="tab-content" id="mainTabContent">
             <!-- General Ledger Tab -->
             <div class="tab-pane fade show active animate-fade-in" id="ledger" role="tabpanel">
-                <!-- Filter Section -->
-                <div class="filter-section">
-                    <h5 class="mb-3" id="filterTitle">
-                        <i class="fas fa-filter"></i> الفلاتر والخيارات
-                         </h5>
-                    
-                        <label class="form-label" id="labelFinanceBook">Finance Book</label>
-                          <select class="form-select" id="financeBook" onchange="applyFilters()">
+                    <div class="filter-grid">
+                        <div>
+                            <label class="form-label" id="labelFinanceBook">Finance Book</label>
+                            <select class="form-select" id="financeBook" onchange="applyFilters()">
                                 <option value="alrajhi">شركة الراجحي التجارية</option>
                                 <option value="saud">مؤسسة سعود للمقاولات</option>
                                 <option value="alamal">شركة الأمل للاستثمار</option>
@@ -1361,7 +1355,7 @@
             }
         }
 
-        // ============================================
+                // ============================================
         // LEDGER DATA MANAGEMENT
         // ============================================
         function loadLedgerData() {
@@ -2187,5 +2181,6 @@
             }, 3000);
         }
     </script>
+    
 </body>
 </html>
