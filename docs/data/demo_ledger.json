@@ -1,0 +1,372 @@
+{
+  "company": {
+    "name": "شركة الطيبة للخدمات البيئية ذ.م.م",
+    "name_en": "Al-Tayyibah Environmental Services LLC",
+    "location": "المدينة المنورة",
+    "tax_id": "310123456700003",
+    "cr_number": "2050123456"
+  },
+  
+  "stats": {
+    "net_profit": 285420.50,
+    "profit_growth": 18.3,
+    "expenses": 412680.75,
+    "expense_growth": 7.2,
+    "tax_paid": 61875.25,
+    "fuel_efficiency": 88.4,
+    "efficiency_improvement": 5.7
+  },
+  
+  "fleet_efficiency": [
+    {
+      "truck": "شاحنة 101",
+      "truck_en": "Truck-101",
+      "fuel_cost": 12500.00,
+      "maintenance": 3200.00,
+      "efficiency": 92.5,
+      "status": "active",
+      "driver": "محمد العمري",
+      "route": "المدينة المنورة - جدة"
+    },
+    {
+      "truck": "شاحنة 102",
+      "truck_en": "Truck-102",
+      "fuel_cost": 15200.00,
+      "maintenance": 2800.00,
+      "efficiency": 89.3,
+      "status": "active",
+      "driver": "أحمد السعيد",
+      "route": "المدينة المنورة - الرياض"
+    },
+    {
+      "truck": "شاحنة 103",
+      "truck_en": "Truck-103",
+      "fuel_cost": 9800.00,
+      "maintenance": 4500.00,
+      "efficiency": 85.7,
+      "status": "maintenance",
+      "driver": "خالد الحربي",
+      "route": "داخل المدينة"
+    },
+    {
+      "truck": "شاحنة 104",
+      "truck_en": "Truck-104",
+      "fuel_cost": 18500.00,
+      "maintenance": 3100.00,
+      "efficiency": 91.2,
+      "status": "active",
+      "driver": "عبدالله الأنصاري",
+      "route": "المدينة المنورة - ينبع"
+    },
+    {
+      "truck": "شاحنة 105",
+      "truck_en": "Truck-105",
+      "fuel_cost": 14300.00,
+      "maintenance": 2900.00,
+      "efficiency": 87.8,
+      "status": "active",
+      "driver": "سعد القحطاني",
+      "route": "المدينة المنورة - تبوك"
+    },
+    {
+      "truck": "شاحنة 106",
+      "truck_en": "Truck-106",
+      "fuel_cost": 11200.00,
+      "maintenance": 3600.00,
+      "efficiency": 88.9,
+      "status": "active",
+      "driver": "فهد الدوسري",
+      "route": "داخل المدينة"
+    }
+  ],
+  
+  "expense_breakdown": [
+    {
+      "category": "الوقود",
+      "category_en": "Fuel",
+      "amount": 142600.00,
+      "percentage": 34.6,
+      "vat_amount": 21390.00
+    },
+    {
+      "category": "الرواتب",
+      "category_en": "Salaries",
+      "amount": 180400.00,
+      "percentage": 43.7,
+      "vat_amount": 0
+    },
+    {
+      "category": "الصيانة",
+      "category_en": "Maintenance",
+      "amount": 52300.00,
+      "percentage": 12.7,
+      "vat_amount": 7845.00
+    },
+    {
+      "category": "الإيجارات",
+      "category_en": "Rent",
+      "amount": 24500.00,
+      "percentage": 5.9,
+      "vat_amount": 3675.00
+    },
+    {
+      "category": "أخرى",
+      "category_en": "Others",
+      "amount": 12880.75,
+      "percentage": 3.1,
+      "vat_amount": 1932.11
+    }
+  ],
+  
+  "monthly_trend": [
+    {
+      "month": "يناير",
+      "month_en": "January",
+      "revenue": 185200.00,
+      "expenses": 138500.00,
+      "profit": 46700.00,
+      "vat": 8505.00
+    },
+    {
+      "month": "فبراير",
+      "month_en": "February",
+      "revenue": 192800.00,
+      "expenses": 142300.00,
+      "profit": 50500.00,
+      "vat": 8845.00
+    },
+    {
+      "month": "مارس",
+      "month_en": "March",
+      "revenue": 178400.00,
+      "expenses": 145600.00,
+      "profit": 32800.00,
+      "vat": 8184.00
+    },
+    {
+      "month": "أبريل",
+      "month_en": "April",
+      "revenue": 205600.00,
+      "expenses": 149200.00,
+      "profit": 56400.00,
+      "vat": 9456.00
+    },
+    {
+      "month": "مايو",
+      "month_en": "May",
+      "revenue": 198300.00,
+      "expenses": 151800.00,
+      "profit": 46500.00,
+      "vat": 9105.00
+    },
+    {
+      "month": "يونيو",
+      "month_en": "June",
+      "revenue": 212500.00,
+      "expenses": 155400.00,
+      "profit": 57100.00,
+      "vat": 9675.00
+    },
+    {
+      "month": "يوليو",
+      "month_en": "July",
+      "revenue": 189700.00,
+      "expenses": 148900.00,
+      "profit": 40800.00,
+      "vat": 8655.00
+    },
+    {
+      "month": "أغسطس",
+      "month_en": "August",
+      "revenue": 195400.00,
+      "expenses": 152100.00,
+      "profit": 43300.00,
+      "vat": 8895.00
+    },
+    {
+      "month": "سبتمبر",
+      "month_en": "September",
+      "revenue": 208900.00,
+      "expenses": 158600.00,
+      "profit": 50300.00,
+      "vat": 9535.00
+    },
+    {
+      "month": "أكتوبر",
+      "month_en": "October",
+      "revenue": 218600.00,
+      "expenses": 162400.00,
+      "profit": 56200.00,
+      "vat": 9972.00
+    },
+    {
+      "month": "نوفمبر",
+      "month_en": "November",
+      "revenue": 225800.00,
+      "expenses": 168200.00,
+      "profit": 57600.00,
+      "vat": 10290.00
+    },
+    {
+      "month": "ديسمبر",
+      "month_en": "December",
+      "revenue": 232100.00,
+      "expenses": 174500.00,
+      "profit": 57600.00,
+      "vat": 10581.50
+    }
+  ],
+  
+  "journal_entries": [
+    {
+      "voucher_no": "JV-00234",
+      "posting_date": "2024-01-15",
+      "total_debit": 8000.00,
+      "total_credit": 8000.00,
+      "user_remark": "دفعة موردين - يناير 2024",
+      "entries": [
+        {
+          "account": "5110 - مصاريف الوقود",
+          "account_en": "5110 - Fuel Expenses",
+          "party_type": "Supplier",
+          "party": "SUP-00123",
+          "party_name": "مؤسسة النور للديزل",
+          "party_name_en": "Al-Noor Diesel Est.",
+          "debit": 3000.00,
+          "credit": 0,
+          "against_account": "2110 - الموردين",
+          "reference_type": "Purchase Invoice",
+          "reference_name": "PINV-2024-00045",
+          "cost_center": "CC-FUEL-001"
+        },
+        {
+          "account": "5210 - إيجار معدات",
+          "account_en": "5210 - Equipment Rental",
+          "party_type": "Supplier",
+          "party": "SUP-00124",
+          "party_name": "شركة الأمانة للمعدات",
+          "party_name_en": "Al-Amanah Equipment Co.",
+          "debit": 2500.00,
+          "credit": 0,
+          "against_account": "2110 - الموردين",
+          "reference_type": "Purchase Invoice",
+          "reference_name": "PINV-2024-00046",
+          "cost_center": "CC-EQUIPMENT-001"
+        },
+        {
+          "account": "5310 - أجور مؤقتة",
+          "account_en": "5310 - Temporary Labor",
+          "party_type": "Supplier",
+          "party": "SUP-00125",
+          "party_name": "مقاول العمالة المتعاقدة",
+          "party_name_en": "Contracted Labor Contractor",
+          "debit": 2500.00,
+          "credit": 0,
+          "against_account": "1110 - البنك",
+          "reference_type": null,
+          "reference_name": null,
+          "cost_center": "CC-LABOR-001"
+        },
+        {
+          "account": "1110 - النقدية - البنك الأهلي",
+          "account_en": "1110 - Cash - Al Ahli Bank",
+          "party_type": null,
+          "party": null,
+          "party_name": null,
+          "party_name_en": null,
+          "debit": 0,
+          "credit": 8000.00,
+          "against_account": "متعدد",
+          "reference_type": null,
+          "reference_name": null,
+          "cost_center": null
+        }
+      ]
+    },
+    {
+      "voucher_no": "JV-00245",
+      "posting_date": "2024-01-20",
+      "total_debit": 5000.00,
+      "total_credit": 5000.00,
+      "user_remark": "دفعة رواتب - نصف شهر يناير",
+      "entries": [
+        {
+          "account": "5110 - رواتب الموظفين",
+          "account_en": "5110 - Employee Salaries",
+          "party_type": "Employee",
+          "party": "EMP-00101",
+          "party_name": "محمد العمري",
+          "party_name_en": "Mohammed Al-Omari",
+          "debit": 2000.00,
+          "credit": 0,
+          "against_account": "2120 - الرواتب المستحقة",
+          "reference_type": "Salary Slip",
+          "reference_name": "SAL-2024-0101",
+          "cost_center": "CC-ADMIN-001"
+        },
+        {
+          "account": "5110 - رواتب الموظفين",
+          "account_en": "5110 - Employee Salaries",
+          "party_type": "Employee",
+          "party": "EMP-00102",
+          "party_name": "أحمد السعيد",
+          "party_name_en": "Ahmed Al-Saeed",
+          "debit": 1800.00,
+          "credit": 0,
+          "against_account": "2120 - الرواتب المستحقة",
+          "reference_type": "Salary Slip",
+          "reference_name": "SAL-2024-0102",
+          "cost_center": "CC-ADMIN-001"
+        },
+        {
+          "account": "5110 - رواتب الموظفين",
+          "account_en": "5110 - Employee Salaries",
+          "party_type": "Employee",
+          "party": "EMP-00103",
+          "party_name": "خالد الحربي",
+          "party_name_en": "Khalid Al-Harbi",
+          "debit": 1200.00,
+          "credit": 0,
+          "against_account": "2120 - الرواتب المستحقة",
+          "reference_type": "Salary Slip",
+          "reference_name": "SAL-2024-0103",
+          "cost_center": "CC-FIELD-001"
+        },
+        {
+          "account": "1110 - النقدية - البنك الأهلي",
+          "account_en": "1110 - Cash - Al Ahli Bank",
+          "party_type": null,
+          "party": null,
+          "party_name": null,
+          "party_name_en": null,
+          "debit": 0,
+          "credit": 5000.00,
+          "against_account": "متعدد",
+          "reference_type": null,
+          "reference_name": null,
+          "cost_center": null
+        }
+      ]
+    }
+  ],
+  
+  "zatca_compliance": {
+    "status": "compliant",
+    "status_ar": "متوافق",
+    "last_submission": "2024-12-15T10:30:00Z",
+    "next_submission": "2025-01-15",
+    "total_invoices_submitted": 1248,
+    "invoices_approved": 1245,
+    "invoices_rejected": 3,
+    "compliance_rate": 99.76,
+    "phase_2_ready": true
+  },
+  
+  "metadata": {
+    "report_generated": "2024-12-20T14:30:00Z",
+    "report_period": "Q4 2024",
+    "currency": "SAR",
+    "language": "ar",
+    "version": "1.0.0"
+  }
+}
