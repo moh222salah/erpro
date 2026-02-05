@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Advanced Financial Intelligence System - ZATCA Compliant">
+    <meta name="theme-color" content="#667eea">
+    <title>ERPNext GL Intelligence | Financial Dashboard</title>
+    
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" id="bootstrap-rtl">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" id="bootstrap-ltr" disabled>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        /* ============================================
+           ULTRA-MODERN CSS VARIABLES
+        ============================================ */
+        :root {
+            /* Premium Gradients */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --gradient-danger: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            --gradient-info: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-dark: linear-gradient(135deg, #1a1d29 0%, #2d3748 100%);
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --glass-backdrop: blur(20px) saturate(180%);
+            
+            /* Colors */
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            
+            /* Transitions */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Border Radius */
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 50%;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --bg-primary: #0f1117;
+            --bg-secondary: #1a1d29;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --glass-bg: rgba(26, 29, 41, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+        ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Cairo', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background var(--transition-base);
+        }
+
+        /* English Font */
+        [lang="en"], [lang="en"] * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* ============================================
+           GLASSMORPHISM UTILITIES
+        ============================================ */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            -webkit-backdrop-filter: var(--glass-backdrop);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            padding: var(--spacing-lg);
+            transition: all var(--transition-base);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(31, 38, 135, 0.2);
+        }
+
+        /* ============================================
+           CUSTOM SCROLLBAR (Desktop)
+        ============================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 10px;
+        }
+
+        /* ============================================
+           HEADER - HERO SECTION
+        ============================================ */
+        .hero-header {
+            position: relative;
+            background: var(--gradient-primary);
+            padding: clamp(2rem, 5vw, 4rem) 0 clamp(3rem, 6vw, 5rem);
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+            overflow: hidden;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Animated Background Orbs */
+        .hero-header::before,
+        .hero-header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float-orb 20s infinite ease-in-out;
+        }
+
+        .hero-header::before {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            top: -200px;
+            left: -100px;
+        }
+
+        .hero-header::after {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            bottom: -150px;
+            right: -50px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, 30px) scale(1.1); }
+            66% { transform: translate(-30px, -20px) scale(0.9); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: rgba(255,255,255,0.95);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* ZATCA Badge */
+        .zatca-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            font-weight: 600;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            animation: pulse-glow 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+            50% { box-shadow: 0 6px 30px rgba(255,255,255,0.4); }
+        }
+
+        /* ============================================
+           LANGUAGE SWITCHER (Compact & Modern)
+        ============================================ */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
+
+        .lang-switcher:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.15);
+        }
+
+        .lang-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .lang-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Mobile: Adjust position */
+        @media (max-width: 768px) {
+            .lang-switcher {
+                top: 10px;
+                right: 10px;
+                padding: 0.4rem 0.6rem;
+            }
+            
+            .lang-icon {
+                width: 18px;
+                height: 18px;
+                font-size: 0.75rem;
+            }
+            
+            .lang-text {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ============================================
+           CONTROL PANEL - Modern Glassmorphism
+        ============================================ */
+        .control-panel {
+            margin-top: calc(var(--spacing-xl) * -1.5);
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+            z-index: 100;
+        }
+
+        .control-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            padding: clamp(1rem, 3vw, 1.5rem);
+            box-shadow: 0 10px 40px rgba(31, 38, 135, 0.12);
+        }
+
+        .filter-group label {
+            font-size: clamp(0.85rem, 2vw, 0.9rem);
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: white;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-refresh {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
+
+        .btn-refresh:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-refresh:active {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           STATISTICS CARDS - Premium Mobile-First
+        ============================================ */
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            padding: clamp(1.25rem, 4vw, 1.75rem);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-base);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Gradient Border on Top */
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-slow);
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(31, 38, 135, 0.2);
+        }
+
+        .stat-icon {
+            width: clamp(50px, 12vw, 65px);
+            height: clamp(50px, 12vw, 65px);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            margin-bottom: var(--spacing-md);
+            position: relative;
+        }
+
+        .stat-icon.success {
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.15), rgba(56, 239, 125, 0.15));
+            color: #11998e;
+        }
+
+        .stat-icon.danger {
+            background: linear-gradient(135deg, rgba(235, 51, 73, 0.15), rgba(244, 92, 67, 0.15));
+            color: #eb3349;
+        }
+
+        .stat-icon.primary {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            color: #667eea;
+        }
+
+        .stat-icon.warning {
+            background: linear-gradient(135deg, rgba(250, 112, 154, 0.15), rgba(254, 225, 64, 0.15));
+            color: #fa709a;
+        }
+
+        .stat-label {
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .stat-value {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-weight: 600;
+        }
+
+        .stat-change.positive {
+            background: rgba(17, 153, 142, 0.1);
+            color: #11998e;
+        }
+
+        .stat-change.negative {
+            background: rgba(235, 51, 73, 0.1);
+            color: #eb3349;
+        }
+
+        /* ============================================
+           CHARTS - Mobile Optimized
+        ============================================ */
+        .chart-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            padding: clamp(1rem, 3vw, 1.75rem);
+            border: 1px solid var(--glass-border);
+            margin-bottom: var(--spacing-lg);
+            transition: all var(--transition-base);
+        }
+
+        .chart-container:hover {
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .chart-title {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chart-title i {
+            color: #667eea;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .chart-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .chart-btn:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Canvas Height Controls */
+        canvas {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+
+        #fleetChart {
+            max-height: 350px !important;
+        }
+
+        #expensePieChart {
+            max-height: 350px !important;
+        }
+
+        #trendChart {
+            max-height: 300px !important;
+        }
+
+        /* ============================================
+           TABLE - Modern & Mobile-Friendly
+        ============================================ */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: var(--radius-lg);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+
+        .data-table thead {
+            background: var(--gradient-primary);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .data-table th {
+            padding: 1rem 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 0.875rem 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            transition: background var(--transition-fast);
+        }
+
+        .data-table tbody tr:hover td {
+            background: var(--bg-primary);
+        }
+
+        .badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge.bg-success {
+            background: var(--gradient-success) !important;
+        }
+
+        .badge.bg-warning {
+            background: var(--gradient-warning) !important;
+        }
+
+        /* ============================================
+           LOADING SKELETONS
+        ============================================ */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-wave 1.5s infinite;
+            border-radius: var(--radius-lg);
+        }
+
+        @keyframes skeleton-wave {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-card {
+            height: clamp(140px, 30vw, 180px);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .skeleton-chart {
+            height: clamp(250px, 50vw, 350px);
+        }
+
+        /* ============================================
+           THEME TOGGLE - Modern Floating Button
+        ============================================ */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            transition: all var(--transition-base);
+            z-index: 9998;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* ============================================
+           MOBILE OPTIMIZATIONS
+        ============================================ */
+        @media (max-width: 768px) {
+            /* Adjust spacing */
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Stack chart actions */
+            .chart-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .chart-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            /* Compact stat cards */
+            .stat-card {
+                padding: 1.25rem;
+            }
+            
+            /* Smaller chart heights */
+            #fleetChart { max-height: 250px !important; }
+            #expensePieChart { max-height: 250px !important; }
+            #trendChart { max-height: 220px !important; }
+            
+            /* Adjust theme toggle */
+            .theme-toggle {
+                width: 48px;
+                height: 48px;
+                font-size: 1.1rem;
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            /* Table font size */
+            .data-table {
+                font-size: 0.8rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 0.625rem 0.5rem;
+            }
+        }
+
+        /* Tablet Optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            #fleetChart { max-height: 300px !important; }
+            #expensePieChart { max-height: 300px !important; }
+            #trendChart { max-height: 260px !important; }
+        }
+
+        /* ============================================
+           ANIMATIONS & TRANSITIONS
+        ============================================ */
+        .fade-in {
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger animation for cards */
+        .fade-in:nth-child(1) { animation-delay: 0.05s; }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.15s; }
+        .fade-in:nth-child(4) { animation-delay: 0.2s; }
+
+        /* ============================================
+           UTILITY CLASSES
+        ============================================ */
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        /* Print Styles */
+        @media print {
+            .control-panel,
+            .theme-toggle,
+            .lang-switcher,
+            .chart-actions {
+                display: none !important;
+            }
+            
+            .chart-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         LANGUAGE SWITCHER (Compact & Fixed)
+    ============================================ -->
+    <div class="lang-switcher no-select" onclick="toggleLanguage()">
+        <span class="lang-icon" id="langIcon">🌐</span>
+        <span class="lang-text" id="langText">EN</span>
+    </div>
+
+    <!-- ============================================
+         HERO HEADER
+    ============================================ -->
+    <div class="hero-header">
+        <div class="container">
+            <div class="hero-content">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8 col-md-7">
+                        <h1 class="hero-title">
+                            <i class="fas fa-chart-line"></i>
+                            <span data-ar="نظام الذكاء المالي المتقدم" data-en="Advanced Financial Intelligence System">نظام الذكاء المالي المتقدم</span>
+                        </h1>
+                        <p class="hero-subtitle">
+                            <span data-ar="شركة الطيبة للخدمات البيئية - المدينة المنورة" data-en="Al-Tayyibah Environmental Services - Madinah">شركة الطيبة للخدمات البيئية - المدينة المنورة</span>
+                            <br>
+                            <small>
+                                <span data-ar="متوافق 100% مع متطلبات هيئة الزكاة والضريبة والجمارك (ZATCA)" data-en="100% ZATCA Compliant">متوافق 100% مع متطلبات هيئة الزكاة والضريبة والجمارك (ZATCA)</span>
+                            </small>
+                        </p>
+                    </div>
+                    <div class="col-lg-4 col-md-5 text-center text-md-end">
+                        <span class="zatca-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-ar="معتمد من ZATCA" data-en="ZATCA Certified">معتمد من ZATCA</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         CONTROL PANEL
+    ============================================ -->
+    <div class="container control-panel">
+        <div class="control-card">
+            <div class="row g-3 align-items-end">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="filter-group">
+                        <label>
+                            <i class="fas fa-calendar-alt"></i>
+                            <span data-ar="الفترة المالية" data-en="Financial Period">الفترة المالية</span>
+                        </label>
+                        <select id="periodFilter" class="form-select">
+                            <option value="q1-2024" data-ar="Q1 2024 (يناير - مارس)" data-en="Q1 2024 (Jan - Mar)">Q1 2024 (يناير - مارس)</option>
+                            <option value="q2-2024" data-ar="Q2 2024 (أبريل - يونيو)" data-en="Q2 2024 (Apr - Jun)">Q2 2024 (أبريل - يونيو)</option>
+                            <option value="q3-2024" data-ar="Q3 2024 (يوليو - سبتمبر)" data-en="Q3 2024 (Jul - Sep)">Q3 2024 (يوليو - سبتمبر)</option>
+                            <option value="q4-2024" selected data-ar="Q4 2024 (أكتوبر - ديسمبر)" data-en="Q4 2024 (Oct - Dec)">Q4 2024 (أكتوبر - ديسمبر)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="filter-group">
+                        <label>
+                            <i class="fas fa-building"></i>
+                            <span data-ar="الفرع" data-en="Branch">الفرع</span>
+                        </label>
+                        <select id="branchFilter" class="form-select">
+                            <option value="all" selected data-ar="جميع الفروع" data-en="All Branches">جميع الفروع</option>
+                            <option value="medina" data-ar="المدينة المنورة" data-en="Madinah">المدينة المنورة</option>
+                            <option value="jeddah" data-ar="جدة" data-en="Jeddah">جدة</option>
+                            <option value="riyadh" data-ar="الرياض" data-en="Riyadh">الرياض</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="filter-group">
+                        <label>
+                            <i class="fas fa-filter"></i>
+                            <span data-ar="نوع التقرير" data-en="Report Type">نوع التقرير</span>
+                        </label>
+                        <select id="reportType" class="form-select">
+                            <option value="summary" selected data-ar="ملخص تنفيذي" data-en="Executive Summary">ملخص تنفيذي</option>
+                            <option value="detailed" data-ar="تقرير تفصيلي" data-en="Detailed Report">تقرير تفصيلي</option>
+                            <option value="zatca" data-ar="تقرير ZATCA" data-en="ZATCA Report">تقرير ZATCA</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <button class="btn-refresh" onclick="applyFilters()">
+                        <i class="fas fa-sync-alt"></i>
+                        <span data-ar="تحديث البيانات" data-en="Refresh Data">تحديث البيانات</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         STATISTICS CARDS
+    ============================================ -->
+    <div class="container">
+        <!-- Loading Skeletons -->
+        <div id="loadingCards" class="row g-3">
+            <div class="col-lg-3 col-md-6 col-sm-6"><div class="skeleton skeleton-card"></div></div>
+            <div class="col-lg-3 col-md-6 col-sm-6"><div class="skeleton skeleton-card"></div></div>
+            <div class="col-lg-3 col-md-6 col-sm-6"><div class="skeleton skeleton-card"></div></div>
+            <div class="col-lg-3 col-md-6 col-sm-6"><div class="skeleton skeleton-card"></div></div>
+        </div>
+
+        <!-- Actual Cards -->
+        <div id="statsCards" class="row g-3" style="display: none;">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="stat-card fade-in">
+                    <div class="stat-icon success">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-label">
+                        <span data-ar="صافي الربح (بعد الضريبة)" data-en="Net Profit (After Tax)">صافي الربح (بعد الضريبة)</span>
+                    </div>
+                    <div class="stat-value text-success" id="netProfit">--</div>
+                    <span class="stat-change positive" id="profitChange">
+                        <i class="fas fa-arrow-up"></i>--
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="stat-card fade-in">
+                    <div class="stat-icon danger">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-label">
+                        <span data-ar="إجمالي المصروفات" data-en="Total Expenses">إجمالي المصروفات</span>
+                    </div>
+                    <div class="stat-value text-danger" id="totalExpenses">--</div>
+                    <span class="stat-change negative" id="expensesChange">
+                        <i class="fas fa-arrow-up"></i>--
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="stat-card fade-in">
+                    <div class="stat-icon primary">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="stat-label">
+                        <span data-ar="ضريبة القيمة المضافة (15%)" data-en="VAT Tax (15%)">ضريبة القيمة المضافة (15%)</span>
+                    </div>
+                    <div class="stat-value text-primary" id="taxPaid">--</div>
+                    <span class="stat-change positive" id="taxChange">
+                        <i class="fas fa-check-circle"></i>
+                        <span data-ar="مدفوعة" data-en="Paid">مدفوعة</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="stat-card fade-in">
+                    <div class="stat-icon warning">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <div class="stat-label">
+                        <span data-ar="كفاءة استهلاك الوقود" data-en="Fuel Efficiency">كفاءة استهلاك الوقود</span>
+                    </div>
+                    <div class="stat-value text-warning" id="fuelEfficiency">--</div>
+                    <span class="stat-change positive" id="efficiencyChange">
+                        <i class="fas fa-arrow-up"></i>--
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- ============================================
+         DATA TABLE
+    ============================================ -->
+    <div class="container mt-4 mb-5">
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">
+                    <i class="fas fa-table"></i>
+                    <span data-ar="تفاصيل أداء الشاحنات" data-en="Fleet Performance Details">تفاصيل أداء الشاحنات</span>
+                </div>
+                <div class="chart-actions">
+                    <button class="chart-btn" onclick="exportTable()">
+                        <i class="fas fa-download"></i>
+                        <span data-ar="تصدير الجدول" data-en="Export Table">تصدير الجدول</span>
+                    </button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="fleetTable">
+                    <thead>
+                        <tr>
+                            <th><span data-ar="رقم الشاحنة" data-en="Truck #">رقم الشاحنة</span></th>
+                            <th><span data-ar="تكلفة الوقود (ر.س)" data-en="Fuel Cost (SAR)">تكلفة الوقود (ر.س)</span></th>
+                            <th><span data-ar="الصيانة (ر.س)" data-en="Maintenance (SAR)">الصيانة (ر.س)</span></th>
+                            <th><span data-ar="الكفاءة (%)" data-en="Efficiency (%)">الكفاءة (%)</span></th>
+                            <th><span data-ar="الحالة" data-en="Status">الحالة</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="fleetTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Monthly Trend -->
+        <div class="row g-3 mt-2">
+            <div class="col-12">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <i class="fas fa-chart-area"></i>
+                            <span data-ar="اتجاه الربحية الشهرية (2024)" data-en="Monthly Profitability Trend (2024)">اتجاه الربحية الشهرية (2024)</span>
+                        </div>
+                        <div class="chart-actions">
+                            <button class="chart-btn" onclick="toggleChartType('trendChart')">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span data-ar="تبديل النوع" data-en="Toggle Type">تبديل النوع</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="trendChartSkeleton" class="skeleton skeleton-chart"></div>
+                    <canvas id="trendChart" style="display: none;"></canvas>
+                </div>
+            </div>
+        </div>
+</div>
+    
+
+    <!-- ============================================
+         CHARTS SECTION
+    ============================================ -->
+    <div class="container mt-4">
+        <div class="row g-3">
+            <!-- Fleet Cost Analysis -->
+            <div class="col-lg-8">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <i class="fas fa-truck"></i>
+                            <span data-ar="تحليل تكاليف الأسطول (ريال سعودي)" data-en="Fleet Cost Analysis (SAR)">تحليل تكاليف الأسطول (ريال سعودي)</span>
+                        </div>
+                        <div class="chart-actions">
+                            <button class="chart-btn" onclick="exportChart('fleetChart', 'pdf')">
+                                <i class="fas fa-file-pdf"></i>PDF
+                            </button>
+                            <button class="chart-btn" onclick="exportChart('fleetChart', 'excel')">
+                                <i class="fas fa-file-excel"></i>Excel
+                            </button>
+                        </div>
+                    </div>
+                    <div id="fleetChartSkeleton" class="skeleton skeleton-chart"></div>
+                    <canvas id="fleetChart" style="display: none;"></canvas>
+                </div>
+            </div>
+
+            <!-- Expense Breakdown Pie -->
+            <div class="col-lg-4">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <i class="fas fa-chart-pie"></i>
+                            <span data-ar="توزيع المصروفات" data-en="Expense Breakdown">توزيع المصروفات</span>
+                        </div>
+                    </div>
+                    <div id="pieChartSkeleton" class="skeleton skeleton-chart"></div>
+                    <canvas id="expensePieChart" style="display: none;"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- ============================================
+         THEME TOGGLE
+    ============================================ -->
+    <div class="theme-toggle no-select" onclick="toggleDarkMode()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
+
+    <!-- ============================================
+         JAVASCRIPT LOGIC
+    ============================================ -->
+    <script>
+        // =====================================
+        // GLOBAL STATE
+        // =====================================
+        let appData = null;
+        let chartInstances = {};
+        let isDarkMode = false;
+        let currentLang = 'ar';
+
+        // =====================================
+        // INIT
+        // =====================================
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => loadDemoData(), 800);
+        });
+
+        // =====================================
+        // LANGUAGE SWITCHER
+        // =====================================
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            
+            // Update HTML attributes
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Switch Bootstrap CSS
+            const rtlCSS = document.getElementById('bootstrap-rtl');
+            const ltrCSS = document.getElementById('bootstrap-ltr');
+            
+            if (currentLang === 'ar') {
+                rtlCSS.disabled = false;
+                ltrCSS.disabled = true;
+            } else {
+                rtlCSS.disabled = true;
+                ltrCSS.disabled = false;
+            }
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+                el.textContent = currentLang === 'ar' ? el.dataset.ar : el.dataset.en;
+            });
+            
+            // Update language switcher text
+            document.getElementById('langText').textContent = currentLang === 'ar' ? 'EN' : 'عر';
+            
+            // Re-render charts with new labels
+            if (appData) {
+                renderFleetChart(appData.fleet_efficiency);
+                renderExpensePieChart(appData.expense_breakdown);
+                renderTrendChart(appData.monthly_trend);
+            }
+            
+            // Show notification
+            showNotification(
+                currentLang === 'ar' ? 'تم تغيير اللغة' : 'Language changed',
+                'success'
+            );
+        }
+
+        // =====================================
+        // LOAD DATA
+        // =====================================
+        async function loadDemoData() {
+            try {
+                const response = await fetch('./data/demo_ledger.json');
+                appData = await response.json();
+                
+                hideSkeletons();
+                updateStatCards(appData.stats);
+                renderFleetChart(appData.fleet_efficiency);
+                renderExpensePieChart(appData.expense_breakdown);
+                renderTrendChart(appData.monthly_trend);
+                populateFleetTable(appData.fleet_efficiency);
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showNotification(
+                    currentLang === 'ar' ? 'فشل تحميل البيانات' : 'Failed to load data',
+                    'error'
+                );
+            }
+        }
+
+        function hideSkeletons() {
+            document.getElementById('loadingCards').style.display = 'none';
+            document.getElementById('statsCards').style.display = 'flex';
+            
+            document.getElementById('fleetChartSkeleton').style.display = 'none';
+            document.getElementById('fleetChart').style.display = 'block';
+            
+            document.getElementById('pieChartSkeleton').style.display = 'none';
+            document.getElementById('expensePieChart').style.display = 'block';
+            
+            document.getElementById('trendChartSkeleton').style.display = 'none';
+            document.getElementById('trendChart').style.display = 'block';
+        }
+
+        // =====================================
+        // UPDATE STAT CARDS
+        // =====================================
+        function updateStatCards(stats) {
+            document.getElementById('netProfit').innerText = formatCurrency(stats.net_profit);
+            document.getElementById('profitChange').innerHTML = 
+                `<i class="fas fa-arrow-up"></i>+${stats.profit_growth}%`;
+            
+            document.getElementById('totalExpenses').innerText = formatCurrency(stats.expenses);
+            document.getElementById('expensesChange').innerHTML = 
+                `<i class="fas fa-arrow-up"></i>+${stats.expense_growth}%`;
+            
+            document.getElementById('taxPaid').innerText = formatCurrency(stats.tax_paid);
+            
+            document.getElementById('fuelEfficiency').innerText = `${stats.fuel_efficiency}%`;
+            document.getElementById('efficiencyChange').innerHTML = 
+                `<i class="fas fa-arrow-up"></i>+${stats.efficiency_improvement}%`;
+        }
+
+        // =====================================
+        // RENDER FLEET CHART
+        // =====================================
+        function renderFleetChart(fleetData) {
+            const ctx = document.getElementById('fleetChart').getContext('2d');
+            
+            if (chartInstances.fleetChart) {
+                chartInstances.fleetChart.destroy();
+            }
+            
+            chartInstances.fleetChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: fleetData.map(item => currentLang === 'ar' ? item.truck : item.truck_en || item.truck),
+                    datasets: [{
+                        label: currentLang === 'ar' ? 'تكلفة الوقود (ر.س)' : 'Fuel Cost (SAR)',
+                        data: fleetData.map(item => item.fuel_cost),
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2,
+                        borderRadius: 10,
+                        hoverBackgroundColor: 'rgba(118, 75, 162, 0.9)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: window.innerWidth < 768 ? 1.2 : 2,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                            padding: 12,
+                            cornerRadius: 8,
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 13 },
+                            callbacks: {
+                                label: function(context) {
+                                    return currentLang === 'ar' 
+                                        ? `التكلفة: ${formatCurrency(context.parsed.y)}`
+                                        : `Cost: ${formatCurrency(context.parsed.y)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => formatNumber(value) + (currentLang === 'ar' ? ' ر.س' : ' SAR'),
+                                font: { size: 11 }
+                            },
+                            grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11 } }
+                        }
+                    },
+                    animation: {
+                        duration: 1200,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        }
+
+        // =====================================
+        // RENDER EXPENSE PIE CHART
+        // =====================================
+        function renderExpensePieChart(expenseData) {
+            const ctx = document.getElementById('expensePieChart').getContext('2d');
+            
+            if (chartInstances.expensePieChart) {
+                chartInstances.expensePieChart.destroy();
+            }
+            
+            chartInstances.expensePieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: expenseData.map(item => currentLang === 'ar' ? item.category : item.category_en || item.category),
+                    datasets: [{
+                        data: expenseData.map(item => item.amount),
+                        backgroundColor: [
+                            'rgba(102, 126, 234, 0.85)',
+                            'rgba(235, 51, 73, 0.85)',
+                            'rgba(250, 112, 154, 0.85)',
+                            'rgba(17, 153, 142, 0.85)',
+                            'rgba(79, 172, 254, 0.85)'
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#fff',
+                        hoverOffset: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: window.innerWidth < 768 ? 1 : 1,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: { size: window.innerWidth < 768 ? 11 : 13 },
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = formatCurrency(context.parsed);
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        }
+
+        // =====================================
+        // RENDER TREND CHART
+        // =====================================
+        function renderTrendChart(trendData) {
+            const ctx = document.getElementById('trendChart').getContext('2d');
+            
+            if (chartInstances.trendChart) {
+                chartInstances.trendChart.destroy();
+            }
+            
+            chartInstances.trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: trendData.map(item => currentLang === 'ar' ? item.month : item.month_en || item.month),
+                    datasets: [{
+                        label: currentLang === 'ar' ? 'صافي الربح' : 'Net Profit',
+                        data: trendData.map(item => item.profit),
+                        backgroundColor: 'rgba(17, 153, 142, 0.15)',
+                        borderColor: 'rgba(17, 153, 142, 1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        pointBackgroundColor: '#11998e',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: window.innerWidth < 768 ? 1.5 : 2.5,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    return currentLang === 'ar' 
+                                        ? `الربح: ${formatCurrency(context.parsed.y)}`
+                                        : `Profit: ${formatCurrency(context.parsed.y)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => formatNumber(value) + (currentLang === 'ar' ? ' ر.س' : ' SAR'),
+                                font: { size: 11 }
+                            },
+                            grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11 } }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        }
+
+        // =====================================
+        // POPULATE TABLE
+        // =====================================
+        function populateFleetTable(fleetData) {
+            const tbody = document.getElementById('fleetTableBody');
+            tbody.innerHTML = '';
+            
+            fleetData.forEach(item => {
+                const statusText = currentLang === 'ar' 
+                    ? (item.status === 'active' ? 'نشط' : 'صيانة')
+                    : (item.status === 'active' ? 'Active' : 'Maintenance');
+                    
+                const row = `
+                    <tr>
+                        <td><strong>${currentLang === 'ar' ? item.truck : item.truck_en || item.truck}</strong></td>
+                        <td>${formatCurrency(item.fuel_cost)}</td>
+                        <td>${formatCurrency(item.maintenance || 0)}</td>
+                        <td>
+                            <span style="color: ${item.efficiency >= 85 ? '#11998e' : '#eb3349'};">
+                                ${item.efficiency}%
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge ${item.status === 'active' ? 'bg-success' : 'bg-warning'}">
+                                ${statusText}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // =====================================
+        // UTILITY FUNCTIONS
+        // =====================================
+        function formatCurrency(amount) {
+            const locale = currentLang === 'ar' ? 'ar-SA' : 'en-US';
+            return new Intl.NumberFormat(locale, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount) + (currentLang === 'ar' ? ' ر.س' : ' SAR');
+        }
+
+        function formatNumber(number) {
+            const locale = currentLang === 'ar' ? 'ar-SA' : 'en-US';
+            return new Intl.NumberFormat(locale).format(number);
+        }
+
+        // =====================================
+        // FILTER & EXPORT
+        // =====================================
+        function applyFilters() {
+            showNotification(
+                currentLang === 'ar' ? 'جاري تحديث البيانات...' : 'Updating data...',
+                'info'
+            );
+            setTimeout(() => {
+                loadDemoData();
+                showNotification(
+                    currentLang === 'ar' ? 'تم تحديث البيانات بنجاح' : 'Data updated successfully',
+                    'success'
+                );
+            }, 1000);
+        }
+
+        function exportChart(chartId, format) {
+            if (format === 'pdf') {
+                const element = document.querySelector('.chart-container');
+                html2pdf().from(element).save(`${chartId}-report.pdf`);
+                showNotification(
+                    currentLang === 'ar' ? 'جاري تصدير PDF...' : 'Exporting PDF...',
+                    'info'
+                );
+            }
+        }
+
+        function exportTable() {
+            const table = document.getElementById('fleetTable');
+            let csv = [];
+            
+            const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent);
+            csv.push(headers.join(','));
+            
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const cols = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
+                csv.push(cols.join(','));
+            });
+            
+            const csvContent = csv.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'fleet-data.csv';
+            link.click();
+            
+            showNotification(
+                currentLang === 'ar' ? 'تم تصدير الجدول بنجاح' : 'Table exported successfully',
+                'success'
+            );
+        }
+
+        // =====================================
+        // DARK MODE
+        // =====================================
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+            document.getElementById('themeIcon').className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // =====================================
+        // TOGGLE CHART TYPE
+        // =====================================
+        function toggleChartType(chartId) {
+            const chart = chartInstances[chartId];
+            if (!chart) return;
+            
+            chart.config.type = chart.config.type === 'line' ? 'bar' : 'line';
+            chart.update();
+            showNotification(
+                currentLang === 'ar' ? 'تم تبديل نوع الرسم البياني' : 'Chart type toggled',
+                'success'
+            );
+        }
+
+        // =====================================
+        // NOTIFICATIONS
+        // =====================================
+        function showNotification(message, type) {
+            const colors = {
+                success: '#11998e',
+                error: '#eb3349',
+                info: '#667eea',
+                warning: '#fa709a'
+            };
+            
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                ${currentLang === 'ar' ? 'right' : 'left'}: 20px;
+                background: ${colors[type]};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                font-size: 0.9rem;
+                font-weight: 600;
+                max-width: 300px;
+            `;
+            notification.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+        }
+
+        // =====================================
+        // RESPONSIVE CHART RESIZE
+        // =====================================
+        window.addEventListener('resize', () => {
+            if (appData) {
+                renderFleetChart(appData.fleet_efficiency);
+                renderExpensePieChart(appData.expense_breakdown);
+                renderTrendChart(appData.monthly_trend);
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
